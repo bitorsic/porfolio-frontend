@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+@import "tailwindcss";
+
+* {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Strip hljs padding from <code> so the <pre> controls all padding/scrolling */
+pre code.hljs {
+  padding: 0 !important;
+  background: transparent !important;
+  display: block;
+  width: max-content;
+  min-width: 100%;
+}
