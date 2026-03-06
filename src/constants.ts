@@ -1,9 +1,4 @@
-const initialData = {
-	name: "Yash Jaiswal",
-	role: "Backend Engineer",
-	employer: "Global Kartel",
-	linkedin: "https://linkedin.com/in/bitorsic",
-	github: "https://github.com/bitorsic"
-};
+const BASE_URL = 'https://api.bitorsic.com'
+// const BASE_URL = 'http://localhost:8080'
 
-export default { initialData };
+export default { BASE_URL };

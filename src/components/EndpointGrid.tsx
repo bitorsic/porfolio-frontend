@@ -11,30 +11,34 @@ const METHOD_TEXT_COLORS: Record<Endpoint['method'], string> = {
 	DELETE: 'text-red-400',
 }
 
-const endpoints: Endpoint[] = [
-	{ method: 'GET', path: '/about' },
-	{ method: 'GET', path: '/skills' },
-	{ method: 'GET', path: '/projects' },
-	{ method: 'GET', path: '/experience' },
-]
-
 interface EndpointGridProps {
-	onSelect?: (endpoint: Endpoint) => void
+	basePath: string
+	endpoints: Endpoint[]
+	selectedPath: string | null
+	onSelect?: (fullPath: string, method: Endpoint['method']) => void
 }
 
-export default function EndpointGrid({ onSelect }: EndpointGridProps) {
+export default function EndpointGrid({ basePath, endpoints, selectedPath, onSelect }: EndpointGridProps) {
 	return (
 		<div className="flex flex-wrap justify-center gap-3">
-			{endpoints.map((ep) => (
-				<button
-					key={ep.path}
-					onClick={() => onSelect?.(ep)}
-					className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-md border border-white/20 bg-transparent text-xs md:text-sm font-mono hover:bg-white/10 transition-colors cursor-pointer"
-				>
-					<span className={`font-semibold ${METHOD_TEXT_COLORS[ep.method]}`}>{ep.method}</span>
-					<span className="text-white/70">{ep.path}</span>
-				</button>
-			))}
+			{endpoints.map((ep) => {
+				const fullPath = basePath + ep.path
+				const isSelected = selectedPath === fullPath
+				return (
+					<button
+						key={ep.path}
+						onClick={() => onSelect?.(fullPath, ep.method)}
+						className={`flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-md border text-xs md:text-sm font-mono transition-colors cursor-pointer ${
+							isSelected
+								? 'border-white/40 bg-white/15'
+								: 'border-white/20 bg-transparent hover:bg-white/10'
+						}`}
+					>
+						<span className={`font-semibold ${METHOD_TEXT_COLORS[ep.method]}`}>{ep.method}</span>
+						<span className="text-white/70">{ep.path}</span>
+					</button>
+				)
+			})}
 		</div>
 	)
 }
